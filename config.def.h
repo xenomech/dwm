@@ -146,8 +146,13 @@ static Key keys[] = {
 	{ MODKEY,                       XK_F9,  spawn, {.v = mutevol } },
 	{ MODKEY,                       XK_F12, spawn, {.v = upvol   } },
 
-	{MODKEY | ShiftMask, XK_n, spawn, SHCMD("st -e nmtui")},
-	{0, XK_Print, spawn, SHCMD("maim ~/screenshots/pic-full-$(date '+%y%m%d-%H%M-%S').png")},
+	{MODKEY | ControlMask, 			XK_n, 		spawn, 		SHCMD("st -e nmtui")},
+	{MODKEY | ControlMask, 			XK_c, 		spawn, 		SHCMD("chromium")},
+	{MODKEY | ControlMask, 			XK_f, 		spawn, 		SHCMD("firefox")},
+	{MODKEY | ControlMask, 			XK_g, 		spawn, 		SHCMD("brave")},
+	{MODKEY | ControlMask, 			XK_b, 		spawn, 		SHCMD("blueman-manager")},
+
+	{0, 							XK_Print, 	spawn, 		SHCMD("maim ~/screenshots/pic-full-$(date '+%y%m%d-%H%M-%S').png")},
 
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
