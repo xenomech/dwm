@@ -1146,11 +1146,11 @@ loadxrdb()
 
       if (xrdb != NULL) {
      	XRDB_LOAD_COLOR("dwm.color0", normbordercolor);
-		XRDB_LOAD_COLOR("dwm.color8", selbordercolor);
+		XRDB_LOAD_COLOR("dwm.selbordercolor", selbordercolor);
 		XRDB_LOAD_COLOR("dwm.color0", normbgcolor);
 		XRDB_LOAD_COLOR("dwm.color6", normfgcolor);
-		XRDB_LOAD_COLOR("dwm.color0", selfgcolor);
-		XRDB_LOAD_COLOR("dwm.color14", selbgcolor);
+		XRDB_LOAD_COLOR("dwm.color14", selfgcolor);
+		XRDB_LOAD_COLOR("dwm.color0", selbgcolor);
       }
     }
   }
@@ -1794,7 +1794,7 @@ setup(void)
 	wa.cursor = cursor[CurNormal]->cursor;
 	wa.event_mask = SubstructureRedirectMask|SubstructureNotifyMask
 		|ButtonPressMask|PointerMotionMask|EnterWindowMask
-		|LeaveWindowMask|StructureNotifyMask|PropertyChangeMask;
+		|LeaveWindowMask|StructureNotifyMask|PropertyChangeMask|KeyPressMask;
 	XChangeWindowAttributes(dpy, root, CWEventMask|CWCursor, &wa);
 	XSelectInput(dpy, root, wa.event_mask);
 	grabkeys();

@@ -126,9 +126,22 @@ static Key keys[] = {
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
 	{ MODKEY|ShiftMask,             XK_c,     xrdb,           {.v = NULL } },
-	{ 0,                       XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
-	{ 0,                       XF86XK_AudioMute, spawn, {.v = mutevol } },
-	{ 0,                       XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
+
+	{ MODKEY|ShiftMask,				XK_x,	  spawn,			SHCMD("slock")},
+	// { 0,                         XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
+	// { 0,                         XF86XK_AudioMute, spawn, {.v = mutevol } },
+	// { 0,                         XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
+
+	{ 0, XF86XK_AudioMute,		    spawn,		SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
+	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("pamixer --allow-boost -i 3; kill -44 $(pidof dwmblocks)") },
+	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("pamixer --allow-boost -d 3; kill -44 $(pidof dwmblocks)") },
+	{ 0, XF86XK_AudioPrev,		    spawn,		SHCMD("playerctl previous") },
+	{ 0, XF86XK_AudioNext,		    spawn,		SHCMD("playerctl next") },
+	{ 0, XF86XK_AudioPause,		    spawn,		SHCMD("playerctl play-pause") },
+	{ 0, XF86XK_AudioPlay,		    spawn,		SHCMD("playerctl play-pause") },
+	{ 0, XF86XK_AudioMicMute,	    spawn,		SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
+
+
 	{ MODKEY,                       XK_F11, spawn, {.v = downvol } },
 	{ MODKEY,                       XK_F9,  spawn, {.v = mutevol } },
 	{ MODKEY,                       XK_F12, spawn, {.v = upvol   } },
