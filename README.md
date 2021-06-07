@@ -47,9 +47,3 @@ Configuration
 The configuration of dwm is done by creating a custom config.h
 and (re)compiling the source code.
 
-
-Screenshots
------------
-
-<img src="./Screenshots/pic-full-210605-0858-09.png" alt="ss"/>
-<img src="./Screenshots/pic-full-210605-0907-54.png" alt="ss"/>

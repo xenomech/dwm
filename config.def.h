@@ -1,6 +1,5 @@
 /* See LICENSE file for copyright and license details. */
 #include <X11/XF86keysym.h>
-
 /* appearance */
 static const unsigned int borderpx = 1; /* border pixel of windows */
 static const unsigned int snap = 30;	/* snap pixel */
@@ -208,6 +207,8 @@ static Key keys[] = {
 	{MODKEY | ControlMask, 					XK_f, spawn, SHCMD("firefox")},
 	{MODKEY | ControlMask,					XK_g, spawn, SHCMD("brave")},
 	{MODKEY | ControlMask, 					XK_b, spawn, SHCMD("blueman-manager")},
+	{MODKEY | ControlMask, 					XK_v, spawn, SHCMD("code")},
+
 
 	{0, 								XK_Print, spawn, SHCMD("maim ~/screenshots/pic-full-$(date '+%y%m%d-%H%M-%S').png")},
 
