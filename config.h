@@ -1,6 +1,5 @@
 /* See LICENSE file for copyright and license details. */
 #include <X11/XF86keysym.h>
-
 /* appearance */
 static const unsigned int borderpx = 1; /* border pixel of windows */
 static const unsigned int snap = 30;	/* snap pixel */
@@ -16,12 +15,12 @@ static const int sidepad = 10;			/* horizontal padding of bar */
 static const int user_bh = 0;			/* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const char *fonts[] = {"Source Code Pro:size=14", "UbuntuMono Nerd Font:pixelsize=22:antialias=true:autohint=true" ,"JoyPixels:pixelsize=14:antialias=true:autohint=true"};
 static const char dmenufont[] = "Source Code Pro:size=14";
-static char normbgcolor[] = "#222222";
+static char normbgcolor[] = "#000000";  /*"#222222"*/
 static char normbordercolor[] = "#444444";
-static char normfgcolor[] = "#bbbbbb";
-static char selfgcolor[] = "#eeeeee";
-static char selbordercolor[] = "#005577";
-static char selbgcolor[] = "#005577";
+static char normfgcolor[] = "#ffffff";
+static char selfgcolor[] = "#ffffff";
+static char selbordercolor[] = "#222222";
+static char selbgcolor[] = "#FF3C38";
 static char *colors[][3] = {
 	/*               fg           bg           border   */
 	[SchemeNorm] = {normfgcolor, normbgcolor, normbordercolor},
@@ -94,7 +93,7 @@ static const Layout layouts[] = {
 
 /* key definitions */
 #define MODKEY Mod4Mask
-#define TAGKEYS(KEY, TAG)                                          			  \
+#define TAGKEYS(KEY, TAG)                                         			  \
 		{MODKEY, 							KEY, view, {.ui = 1 << TAG}},      \
 		{MODKEY | ControlMask,				KEY, toggleview, {.ui = 1 << TAG}}, \
 		{MODKEY | ShiftMask,				KEY, tag, {.ui = 1 << TAG}},         \
@@ -184,20 +183,19 @@ static Key keys[] = {
 	{MODKEY | ShiftMask, 					XK_period, tagmon, {.i = +1}},
 	{MODKEY | ShiftMask, 					XK_c, xrdb, {.v = NULL}},
 
-	{MODKEY | ShiftMask, 					XK_x, spawn, SHCMD("slock")},
 
-	// { 0,                         XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
-	// { 0,                         XF86XK_AudioMute, spawn, {.v = mutevol } },
-	// { 0,                         XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
+	// { 0,                         		XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
+	// { 0,                         		XF86XK_AudioMute, spawn, {.v = mutevol } },
+	// { 0,                         		XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
 
-	{0, 								XF86XK_AudioMute, spawn, SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)")},
-	{0, 								XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer --allow-boost -i 3; kill -44 $(pidof dwmblocks)")},
-	{0, 								XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer --allow-boost -d 3; kill -44 $(pidof dwmblocks)")},
-	{0, 								XF86XK_AudioPrev, spawn, SHCMD("playerctl previous")},
-	{0, 								XF86XK_AudioNext, spawn, SHCMD("playerctl next")},
-	{0, 								XF86XK_AudioPause, spawn, SHCMD("playerctl play-pause")},
-	{0, 								XF86XK_AudioPlay, spawn, SHCMD("playerctl play-pause")},
-	{0, 								XF86XK_AudioMicMute, spawn, SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle")},
+	{0, 									XF86XK_AudioMute, spawn, SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)")},
+	{0, 									XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer --allow-boost -i 3; kill -44 $(pidof dwmblocks)")},
+	{0, 									XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer --allow-boost -d 3; kill -44 $(pidof dwmblocks)")},
+	{0, 									XF86XK_AudioPrev, spawn, SHCMD("playerctl previous")},
+	{0, 									XF86XK_AudioNext, spawn, SHCMD("playerctl next")},
+	{0, 									XF86XK_AudioPause, spawn, SHCMD("playerctl play-pause")},
+	{0, 									XF86XK_AudioPlay, spawn, SHCMD("playerctl play-pause")},
+	{0, 									XF86XK_AudioMicMute, spawn, SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle")},
 
 	{MODKEY, 								XK_F11, spawn, {.v = downvol}},
 	{MODKEY, 								XK_F9, spawn, {.v = mutevol}},
@@ -208,9 +206,10 @@ static Key keys[] = {
 	{MODKEY | ControlMask, 					XK_f, spawn, SHCMD("firefox")},
 	{MODKEY | ControlMask,					XK_g, spawn, SHCMD("brave")},
 	{MODKEY | ControlMask, 					XK_b, spawn, SHCMD("blueman-manager")},
-
-	{0, 								XK_Print, spawn, SHCMD("maim ~/screenshots/pic-full-$(date '+%y%m%d-%H%M-%S').png")},
-
+	{MODKEY | ControlMask, 					XK_v, spawn, SHCMD("code")},
+	{MODKEY | ControlMask | ShiftMask,		XK_l,spawn,SHCMD('slock')},
+	{0, 									XK_Print, spawn, SHCMD("maim ~/screenshots/pic-full-$(date '+%y%m%d-%H%M-%S').png")},
+	
 	TAGKEYS(XK_1, 0)
 		TAGKEYS(XK_2, 1)
 			TAGKEYS(XK_3, 2)
@@ -234,15 +233,15 @@ static Key keys[] = {
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
-	/* click                event mask      button          function        argument */
-	{ClkLtSymbol, 0, Button1, setlayout, {0}},
-	{ClkLtSymbol, 0, Button3, setlayout, {.v = &layouts[2]}},
-	{ClkStatusText, 0, Button2, spawn, {.v = termcmd}},
-	{ClkClientWin, MODKEY, Button1, movemouse, {0}},
-	{ClkClientWin, MODKEY, Button2, togglefloating, {0}},
-	{ClkClientWin, MODKEY, Button3, resizemouse, {0}},
-	{ClkTagBar, 0, Button1, view, {0}},
-	{ClkTagBar, 0, Button3, toggleview, {0}},
-	{ClkTagBar, MODKEY, Button1, tag, {0}},
-	{ClkTagBar, MODKEY, Button3, toggletag, {0}},
+	/* click            event mask      button          function        argument */
+	{ClkLtSymbol,		0, 				Button1, 		setlayout, {0}},
+	{ClkLtSymbol,		0, 				Button3, 		setlayout, {.v = &layouts[2]}},
+	{ClkStatusText,		0, 				Button2, 		spawn, {.v = termcmd}},
+	{ClkClientWin,		MODKEY, 		Button1, 		movemouse, {0}},
+	{ClkClientWin,		MODKEY, 		Button2, 		togglefloating, {0}},
+	{ClkClientWin,		MODKEY, 		Button3, 		resizemouse, {0}},
+	{ClkTagBar, 		0,   			Button1, 		view, {0}},
+	{ClkTagBar, 		0,   			Button3, 		toggleview, {0}},
+	{ClkTagBar, 		MODKEY, 		Button1, 		tag, {0}},
+	{ClkTagBar, 		MODKEY, 		Button3, 		toggletag, {0}},
 };
